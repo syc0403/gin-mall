@@ -1,11 +1,29 @@
 package dao
 
-import "fmt"
+import (
+	"fmt"
+	"gin_mall/model"
+	"os"
+)
 
-func migration() {
-	err := _db.Set("gorm:table_options", "charset=utf8m64").AutoMigrate()
+// Migration 执行数据迁移
+func Migration() {
+	//自动迁移模式
+	err := _db.Set("gorm:table_options", "charset=utf8mb4").
+		AutoMigrate(&model.User{},
+			&model.Product{},
+			&model.Carousel{},
+			&model.Category{},
+			&model.Favorite{},
+			&model.ProductImg{},
+			&model.Order{},
+			&model.Cart{},
+			&model.Admin{},
+			&model.Address{},
+			&model.Notice{})
 	if err != nil {
-		fmt.Println("err:", err)
+		fmt.Println("register table fail")
+		os.Exit(0)
 	}
-	return
+	fmt.Println("register table success")
 }

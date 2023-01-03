@@ -49,7 +49,7 @@ func Database(connRead, connWrite string) {
 			Replicas: []gorm.Dialector{mysql.Open(connRead), mysql.Open(connRead)},
 			Policy:   dbresolver.RandomPolicy{},
 		}))
-	migration()
+	Migration()
 }
 
 func NewDBClient(ctx context.Context) *gorm.DB {
